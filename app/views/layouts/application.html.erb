@@ -11,6 +11,23 @@
   </head>
 
   <body>
+    <header>
+      <div class="hader-logo">
+        <%= link_to("なんかべんりなサイト", "/") %>
+      </div>
+      <ul class="header-menus">
+        <li>
+          <%= link_to("なんかべんりなサイトとは？", "/about") %>
+        </li>
+        <li>
+          <%= link_to("グッズ発売日カレンダー", "/calendar") %>
+        </li>
+        <li>
+          <%= link_to("交換掲示板", "/trade") %>
+        </li>
+        <li>
+          <%= link_to("イベント情報", "/event") %>
+    </header>
     <%= yield %>
   </body>
 </html>
