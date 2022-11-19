@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get "/" => "home#top"
   get "/about" => "home#about"
-  get "/calender" => "calender#top"
+  get "/calendar" => "calendar#top"
   get "/trade" => "trade#top"
 
   # Defines the root path route ("/")
