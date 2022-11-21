@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+
+@import "simple_calendar";
+/*
+*= require_tree .
+*= require_self
+*/
