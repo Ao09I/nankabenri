@@ -1,7 +1,11 @@
 <h1>Calendar#top</h1>
-<p>Find me in app/views/calendar/top.html.erb</p>
 
+<%= month_calendar events: @meetings do |date, meetings| %>
+  <%= date %>
 
-<%= month_calendar do |date| %>
-    <%= date %>
+  <% meetings.each do |meeting| %>
+    <div>
+      <%= meeting.name %>
+    </div>
+  <% end %>
 <% end %>

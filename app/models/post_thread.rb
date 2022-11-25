@@ -1,0 +1,2 @@
+class PostThread < ApplicationRecord
+end
