@@ -76,3 +76,5 @@ gem "simple_calendar", "~> 2.0"
 gem 'typhoeus'
 gem 'dotenv-rails'
 
+
+gem 'pry-rails'
