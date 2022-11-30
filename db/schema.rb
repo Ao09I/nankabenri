@@ -12,9 +12,10 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_11_25_111942) do
   create_table "items", force: :cascade do |t|
-    t.text "goods", null: false
-    t.integer "price", null: false
-    t.date "date", null: false
+    t.string "name", null: false
+    t.integer "price"
+    t.datetime "start_time", null: false
+    t.string "tweet_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
