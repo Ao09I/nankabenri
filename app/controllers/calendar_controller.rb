@@ -13,7 +13,7 @@ class CalendarController < ApplicationController
     username = 'chiikawa_market'
 
     query_params = {
-      "max_results" => 5,
+      "max_results" => 10,
       "expansions" => "author_id",
       "tweet.fields" => "attachments,author_id,conversation_id,created_at,entities,id,lang",
     }
@@ -59,33 +59,37 @@ class CalendarController < ApplicationController
     response = request.run
     parsed_response = JSON.parse(response.body)
 
-  
-
     #map
-    new_product_responce = parsed_response["data"].map do |tweet|
+    new_product_response = parsed_response["data"].map do |tweet|
       {
         id: tweet["id"],
         text: tweet["text"],
-        images_url: tweet["entities"]["urls"][0]["images"].present? ? tweet["entities"]["urls"][0]["images"].map { |image| image["url"]} : []
-        #日付
+        image_url: 
+        if tweet["entities"]["urls"].present?
+          if tweet["entities"]["urls"][0]["images"].present?
+            tweet["entities"]["urls"][0]["images"].map { |image| image["url"]}
+          else
+            []
+          end
+        else
+          []
+        end
       }
       #select
     end.select do |tweet|
       tweet[:text].include?("新商品")
     end
 
-    binding.pry
 
-
-    new_product_responce.each do |tweet|
-      item = Item.find_by(tweet_id: tweet[:id])
+    new_product_response.each do |tweet|
+      item = Item.find_by(tweet_id: tweet['id'])
       #next present 存在してるか　ループを抜ける
       next if item.present?
       #値段、日付、画像
-      new_item = Item.new(name: 'test', price: 1000, start_time: Time.zone.now, tweet_id: tweet[:id])
+      new_item = Item.new(name: 'test', price: 1000, start_time: Time.zone.now, tweet_id: tweet['id'])
       new_item.save
     end
-
   end
-
 end
+
+

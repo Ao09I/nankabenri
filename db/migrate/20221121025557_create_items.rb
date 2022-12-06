@@ -4,7 +4,7 @@ class CreateItems < ActiveRecord::Migration[7.0]
       t.string :name, null: false
       t.integer :price
       t.datetime :start_time, null: false
-      t.string :tweet_id, null: false
+      t.string :tweet_id#, null: false
 
 
       t.timestamps
