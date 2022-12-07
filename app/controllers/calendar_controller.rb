@@ -13,7 +13,7 @@ class CalendarController < ApplicationController
     username = 'chiikawa_market'
 
     query_params = {
-      "max_results" => 10,
+      "max_results" => 50,
       "expansions" => "author_id",
       "tweet.fields" => "attachments,author_id,conversation_id,created_at,entities,id,lang",
     }
@@ -77,19 +77,22 @@ class CalendarController < ApplicationController
       }
       #select
     end.select do |tweet|
-      tweet[:text].include?("新商品")
+      tweet[:text].include?("🌱新商品🌱") #&& 
     end
 
 
+    #取得したツイートにそれぞれ行う処理
     new_product_response.each do |tweet|
-      item = Item.find_by(tweet_id: tweet['id'])
-      #next present 存在してるか　ループを抜ける
+      #itemにtweed_idを頼りに取得したツイートを持ってくる
+      item = Item.find_by(tweet_id: tweet[:id])
+      #nextループ処理を抜けて次の処理へ
       next if item.present?
-      #値段、日付、画像
-      new_item = Item.new(name: 'test', price: 1000, start_time: Time.zone.now, tweet_id: tweet['id'])
+      new_product = tweet[:text].slice(/『.+?』/)
+      #画像の表示の仕方、発売日に入れる方法
+      new_item = Item.new(name: new_product , price: tweet[:text].slice(/\d?*円/), start_time: Time.zone.now)
       new_item.save
+      end
     end
-  end
 end
 
 

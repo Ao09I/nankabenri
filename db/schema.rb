@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_111942) do
     t.string "name", null: false
     t.integer "price"
     t.datetime "start_time", null: false
-    t.string "tweet_id"
+    t.string "tweet_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
