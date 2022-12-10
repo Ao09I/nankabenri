@@ -16,6 +16,20 @@
         <%= link_to("なんかべんりなサイト", "/") %>
       </div>
       <ul class="header-menus">
+        <% if session[:user_id] %>
+          <li> <%= session[:user_id] %> </li>
+          <li>
+          <%= link_to("なんかべんりなサイトとは？", "/about") %>
+          </li>
+          <li>
+            <%= link_to("グッズ発売日カレンダー", "/calendar") %>
+          </li>
+          <li>
+            <%= link_to("交換掲示板", "/trade/index") %>
+          </li>
+          <li>
+            <%= link_to("ログアウト", "/logout",  {method: "post"}) %>
+        <% else %>
         <li>
           <%= link_to("なんかべんりなサイトとは？", "/about") %>
         </li>
@@ -23,11 +37,26 @@
           <%= link_to("グッズ発売日カレンダー", "/calendar") %>
         </li>
         <li>
-          <%= link_to("交換掲示板", "/trade") %>
+          <%= link_to("新規登録", "/signup") %>
         </li>
         <li>
-          <%= link_to("イベント情報", "/event") %>
+          <%= link_to("ログイン", "/login") %>
+        </li>
+        <% end %>
+        </ul>
     </header>
+
+    <!-- <% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %> -->
+    <% flash.each do |message_type, message| %>
+    <div class="flash">
+      <%= message %>
+    </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

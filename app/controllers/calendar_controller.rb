@@ -89,7 +89,7 @@ class CalendarController < ApplicationController
       next if item.present?
       new_product = tweet[:text].slice(/『.+?』/)
       #画像の表示の仕方、発売日に入れる方法
-      new_item = Item.new(name: new_product , price: tweet[:text].slice(/\d?*円/), start_time: Time.zone.now)
+      new_item = Item.new(name: new_product , price: tweet[:text].slice(/\d?*円/), start_time: Time.zone.now, tweet_id: [:id])
       new_item.save
       end
     end

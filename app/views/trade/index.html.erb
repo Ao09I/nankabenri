@@ -1,0 +1,9 @@
+<div class="main">
+    <h1>交換募集掲示板ページ</h1>
+    <% @posts.each do |post| %>
+      <div class="posts-index-item">
+        <%= link_to(post.content, "/posts/#{post.id}") %>
+      </div>
+    <% end %>
+
+</div>

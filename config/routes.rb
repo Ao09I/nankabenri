@@ -1,12 +1,22 @@
 Rails.application.routes.draw do
-  get 'calendar/top'
-  get 'event/top'
-  get "/" => "home#top"
-  get "/about" => "home#about"
-  get "/calendar" => "calendar#top"
-  get "/trade" => "trade#top"
-  get "/event" => "event#top"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get "/" => "home#top"
+  get "login" => "users#login_form"
+  post "login" => "users#login"
+  get "logout" => "users#logout"
+  get "userpage" => "users#show"
+
+  get "about" => "home#about"
+  get "calendar" => "calendar#top"
+
+  get "trade/index" => "trade#index"
+  get "trade/new" => "trade#new"
+  post "trade/create" => "trade#create"
+  get "trade/:id" => "trade#show"
+
+  #get "/event" => "event#top"
+
+  post "users/create" => "users#create"
+  get "signup" => "users#new"
+
 end
