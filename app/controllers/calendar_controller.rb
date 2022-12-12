@@ -13,9 +13,10 @@ class CalendarController < ApplicationController
     username = 'chiikawa_market'
 
     query_params = {
-      "max_results" => 50,
-      "expansions" => "author_id",
-      "tweet.fields" => "attachments,author_id,conversation_id,created_at,entities,id,lang",
+      "max_results" => 2,
+      "expansions" => "attachments.media_keys",
+      "tweet.fields" => "attachments,created_at,entities,id,lang",
+      "media.fields" => "url,media_key"
     }
 
     #ユーザー情報の取得
@@ -60,26 +61,19 @@ class CalendarController < ApplicationController
     parsed_response = JSON.parse(response.body)
 
     #map
-    new_product_response = parsed_response["data"].map do |tweet|
+    new_product_response = parsed_response["data"].map.with_index do |tweet|
       {
         id: tweet["id"],
         text: tweet["text"],
-        image_url: 
-        if tweet["entities"]["urls"].present?
-          if tweet["entities"]["urls"][0]["images"].present?
-            tweet["entities"]["urls"][0]["images"].map { |image| image["url"]}
-          else
-            []
-          end
-        else
-          []
-        end
       }
       #select
     end.select do |tweet|
       tweet[:text].include?("🌱新商品🌱") #&& 
     end
 
+    # TODO: ツイートの１番目のみしか処理していないので、ループで処理できるようにする。
+    keys = parsed_response["data"][0]["attachments"]["media_keys"]
+    image_urls = parsed_response["includes"]["media"].select{ |media| keys.include?(media["media_key"]) }.map { |media| media["url"] }
 
     #取得したツイートにそれぞれ行う処理
     new_product_response.each do |tweet|
