@@ -1,5 +1,3 @@
-
-
 ul, li {
     list-style-type: none;
     padding: 0;
@@ -10,8 +8,12 @@ menu-header {
     margin: 180px;
 }
 
+.menu-header h2 {
+  color: rgb(85, 107, 47); 
+}
+
 header {
-    height: 90px;
+    height: 100px;
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -21,15 +23,13 @@ header {
 
 .header-logo {
     float: left;
-    padding-left: 20px;
-    font-size: 22px;
-    padding-left: 15px;
+    padding: 40px;
+    font-size: 24px;
 }
-
 
 .header-menus {
     float: right;
-    padding-right: 20px;
+    padding: 40px 30px 40px 20px;
   }
   
   .header-menus li {
@@ -41,16 +41,16 @@ header {
   }
   
 .main {
-    padding : 100px 80px 0 80px;
+    padding : 120px 80px 0 80px;
 }
 
 .flash {
     padding: 10px 0;
     color: white;
-    background: rgb(251, 170, 88);
+    background: rgb(88, 91, 251);
     text-align: center;
     position: absolute;
-    top: 64px;
+    top: 100px;
     z-index: 10;
     width: 100%;
     border-radius: 0 0 2px 2px;
@@ -59,6 +59,24 @@ header {
 
 
   .link {
-    text-decoration: none;
-    color: rgb(135, 222, 135)
+    color: rgb(255, 230, 234)
+  }
+
+  .home-link {
+    text-decoration: underline;
+    color: rgb(85, 107, 47);
+  }
+
+  .aboutpage-image {
+    width: 80%
+  }
+
+  .menu-about-media {
+    width: 80%
+  }
+
+  .quote p {
+    float: right;
+    color: black;
+    font-size: 5px;
   }

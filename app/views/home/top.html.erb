@@ -1,34 +1,46 @@
 
 <div class = "main">
 <div class="menu-header">
-    <h2>サイト概要</h2>
+    <h2><サイト概要></h2>
 </div>
 <div class="menu-about">
     <p>「なんか便利なサイト」とは？
         <br>ちいかわマーケットでのグッズの販売情報を見やすくカレンダーにまとめてみたサイトです。
-        交換募集に使える掲示板も用意しています。
+        <br>グッズの交換募集に使える掲示板も用意しています。
     </p>
-    <%= link_to("詳しくはこちら", "/about", class: "link") %>
+    <%= link_to("詳しくはこちら", "/about", class: "home-link") %>
+    <img class="menu-about-media" src="https://pbs.twimg.com/media/Fiop1ZoVsAArJBp?format=jpg&name=medium">
+    <div class="quote">
+        <p>@ngnchiikawa</p>
+    </div>
 </div>
 
 <div class="menu-header">
-    <%= link_to("/calendar", class: "link")do %>
-    <h2>グッズ発売日カレンダー</h2>
+    <%= link_to("/calendar", class: "home-link")do %>
+    <h2><グッズ発売日カレンダー></h2>
     <% end %>
 </div>
 <div class="menu-about">
-    <p>ちいかわマーケット、ちいかわランドにて発売される商品を発売日ごとにわかりやすくまとめたものです。
+    <p>ちいかわマーケット、ちいかわランドにて発売される商品を発売日ごとに見やすくまとめたものです。
     <br>「グッズ発売日カレンダー」と書かれているところをクリックするとカレンダーページに遷移します。
     </p>
+    <img class="menu-about-media" src="https://pbs.twimg.com/media/FfuxFXRVsAEOgic?format=jpg&name=medium">
+    <div class="quote">
+        <p>@ngnchiikawa</p>
+    </div>
 </div>
 
 <div class="menu-header">
-    <%= link_to("/trade/index", class: "link")do %>
-    <h2>掲示板</h2>
+    <%= link_to("/trade/index", class: "home-link")do %>
+    <h2><掲示板></h2>
     <% end %>
     <p>グッズの交換募集に使えそうな掲示板を用意しました。
-    <br>ご利用していただくにはにはユーザー登録が必要となります。右上のリンクからお願いします。</br>
+    <br>ご利用の際にはユーザー登録が必要となります。右上のリンクからお願いします。</br>
     </p>
+    <img class="menu-about-media" src="https://pbs.twimg.com/media/FdS5mFCVIAAUj7W?format=jpg&name=medium">
+    <div class="quote">
+        <p>@ngnchiikawa</p>
+    </div>
 </div>
 </div>
 

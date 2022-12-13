@@ -1,5 +1,5 @@
 <div class="main">
-    <h1>交換募集掲示板ページ</h1>
+    <h1><交換募集掲示板ページ></h1>
     <p>グッズ交換募集用の掲示板です。
     <br>・募集しているもの
     <br>・譲渡するもの
@@ -9,15 +9,32 @@
 
   <div class="post-content">
 
-  <div class="recruitment_posts">
-    <%= link_to("新規投稿はこちら", "/trade/new", class: "link")%>
-  </div>
+    <div class="recruitment_posts">
+      <%= link_to("新規投稿はこちら", "/trade/new", class: "trade-link")%>
+    </div>
+
+    <img class="aboutpage-image" src="https://pbs.twimg.com/media/FYOdzLGVUAAYlwT?format=jpg&name=medium" >
+        <div class="quote">
+            <p>@ngnchiikawa</p>
+        </div>
 
     <div class="posts-index-item">
+      <p>投稿一覧
+      <br>投稿の番号を押すと投稿詳細画面へ飛ぶことができ、その投稿に対するコメントができます。
+      </p>
       <% @post.each do |post| %>
-        <li><%= link_to(post.id, "/trade/#{post.id}", class: "link") %></li>
+        <li><%= link_to(post.id, "/trade/#{post.id}", class: "trade-link") %></li>
         <%= post.content %>
+        <% if post.is_assignment == 1 && post.is_requirement == 0 %>
+          <p>募集</p>
+        <% end %>
+        <% if post.is_requirement == 1 && post.is_assignment == 0 %>
+          <p>譲渡</p>
+        <% end %>
       <% end %>
+      <br>
+      <br>
+      <br>
     </div>
   </div>
 

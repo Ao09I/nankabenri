@@ -4,7 +4,7 @@
 <div class="posts-show-item">
     <p><%= @post.content %></p>
     <!--返信機能実装する-->
-    <%= link_to("返信する", "/thread/#{@post.id}/new", class: "link") %>
+    <%= link_to("返信する", "/thread/#{@post.id}/new", class: "trade-link") %>
     <div class="post-time">
         <%= @post.created_at %>
     </div>

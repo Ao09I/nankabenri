@@ -5,8 +5,8 @@
 <div class="item-content">
   <% items.each do |item| %>
     <div class="item-detail">
-    <%= item.name %>
-    <%= "#{item.price}円" %>
+    <li><%= item.name %></li>
+    <li><%= "#{item.price}円" %></li>
     </div>
     <div class="item-media">
     <% if item.media_url_1.present? %>

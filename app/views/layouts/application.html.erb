@@ -12,12 +12,12 @@
 
   <body>
     <header>
-      <div class="hader-logo">
+      <div class="header-logo">
         <%= link_to("なんかべんりなサイト", "/", class: "link") %>
       </div>
       <ul class="header-menus">
         <% if session[:user_id] %>
-          <li> <%= session[:user_id] %> </li>
+          <li> <%= @current_user.name %> </li>
           <li>
           <%= link_to("なんかべんりなサイトとは？", "/about", class: "link") %>
           </li>
@@ -28,7 +28,7 @@
             <%= link_to("交換掲示板", "/trade/index", class: "link") %>
           </li>
           <li>
-            <%= link_to("ログアウト", "/logout",  {method: "post"}, class: "link") %>
+            <%= link_to("ログアウト", "/logout", {method: "post"}) %>
         <% else %>
         <li>
           <%= link_to("なんかべんりなサイトとは？", "/about", class: "link") %>
