@@ -13,7 +13,7 @@ class CalendarController < ApplicationController
     username = 'chiikawa_market'
 
     query_params = {
-      "max_results" => 10,
+      "max_results" => 50,
       "expansions" => "attachments.media_keys",
       "tweet.fields" => "attachments,created_at,entities,id,lang",
       "media.fields" => "url,media_key"
@@ -61,39 +61,41 @@ class CalendarController < ApplicationController
     parsed_response = JSON.parse(response.body)
 
     #map
-    new_product_response = parsed_response["data"].map.with_index do |tweet|
+    new_product_response = parsed_response["data"].select do |tweet|
+      tweet["text"].include?("🌱新商品🌱") #&& 
+    end
+
+    all_media_keys = parsed_response["includes"].present? ? parsed_response["includes"]["media"] : []
+
+    before_save_tweets = new_product_response.map do |tweet|
       {
         id: tweet["id"],
         text: tweet["text"],
-        image_url: 
-        #メディアのキーが存在するならば
-        if keys = parsed_response["data"][0]["attachments"]["media_keys"].present?
-          #キーを頼りにmediaのurlを探しに行く
-          #if tweet["entities"]["urls"][0]["images"].present?
-            #tweet["entities"]["urls"][0]["images"].map { |image| image["url"]}
-          #else　[]　end
-          parsed_response["includes"]["media"].select
-          { |media| keys.include?(media["media_key"]) }.map 
-          { |media| media["url"] }
-        else
-          []
-        end
+        image_urls: all_media_keys.select do |media| 
+          tweet["attachments"]["media_keys"].include?(media["media_key"]) 
+        end.map { |media| media["url"] }
       }
-      #select
-    end.select do |tweet|
-      tweet[:text].include?("🌱新商品🌱") #&& 
     end
 
-
     #取得したツイートにそれぞれ行う処理
-    new_product_response.each do |tweet|
+    before_save_tweets.each do |tweet|
       #itemにtweed_idを頼りに取得したツイートを持ってくる
       item = Item.find_by(tweet_id: tweet[:id])
       #nextループ処理を抜けて次の処理へ
       next if item.present?
       new_product = tweet[:text].slice(/『.+?』/)
       #発売日に入れる方法
-      new_item = Item.new(name: new_product , price: tweet[:text].slice(/\d?*円/), start_time: Time.zone.now, tweet_id: [:id])
+      new_item = Item.new(
+        name: new_product, 
+        price: tweet[:text].slice(/\d?*円/), 
+        start_time: Time.zone.now, 
+        tweet_id: tweet[:id],
+        media_url_1: tweet[:image_urls][0],
+        media_url_2: tweet[:image_urls][1],
+        media_url_3: tweet[:image_urls][2],
+        media_url_4: tweet[:image_urls][3],
+      )
+
       new_item.save
       end
     end
