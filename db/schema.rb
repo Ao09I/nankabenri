@@ -24,6 +24,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_111942) do
   create_table "items", force: :cascade do |t|
     t.string "name", null: false
     t.integer "price"
+    t.string "media_url_1"
+    t.string "media_url_2"
+    t.string "media_url_3"
+    t.string "media_url_4"
     t.datetime "start_time", null: false
     t.string "tweet_id", null: false
     t.datetime "created_at", null: false

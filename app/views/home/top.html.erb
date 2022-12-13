@@ -8,11 +8,11 @@
         <br>ちいかわマーケットでのグッズの販売情報を見やすくカレンダーにまとめてみたサイトです。
         交換募集に使える掲示板も用意しています。
     </p>
-    <%= link_to("詳しくはこちら", "/about") %>
+    <%= link_to("詳しくはこちら", "/about", class: "link") %>
 </div>
 
 <div class="menu-header">
-    <%= link_to("/calendar")do %>
+    <%= link_to("/calendar", class: "link")do %>
     <h2>グッズ発売日カレンダー</h2>
     <% end %>
 </div>
@@ -23,7 +23,7 @@
 </div>
 
 <div class="menu-header">
-    <%= link_to("/trade")do %>
+    <%= link_to("/trade/index", class: "link")do %>
     <h2>掲示板</h2>
     <% end %>
     <p>グッズの交換募集に使えそうな掲示板を用意しました。

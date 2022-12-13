@@ -13,34 +13,34 @@
   <body>
     <header>
       <div class="hader-logo">
-        <%= link_to("なんかべんりなサイト", "/") %>
+        <%= link_to("なんかべんりなサイト", "/", class: "link") %>
       </div>
       <ul class="header-menus">
         <% if session[:user_id] %>
           <li> <%= session[:user_id] %> </li>
           <li>
-          <%= link_to("なんかべんりなサイトとは？", "/about") %>
+          <%= link_to("なんかべんりなサイトとは？", "/about", class: "link") %>
           </li>
           <li>
-            <%= link_to("グッズ発売日カレンダー", "/calendar") %>
+            <%= link_to("グッズ発売日カレンダー", "/calendar", class: "link") %>
           </li>
           <li>
-            <%= link_to("交換掲示板", "/trade/index") %>
+            <%= link_to("交換掲示板", "/trade/index", class: "link") %>
           </li>
           <li>
-            <%= link_to("ログアウト", "/logout",  {method: "post"}) %>
+            <%= link_to("ログアウト", "/logout",  {method: "post"}, class: "link") %>
         <% else %>
         <li>
-          <%= link_to("なんかべんりなサイトとは？", "/about") %>
+          <%= link_to("なんかべんりなサイトとは？", "/about", class: "link") %>
         </li>
         <li>
-          <%= link_to("グッズ発売日カレンダー", "/calendar") %>
+          <%= link_to("グッズ発売日カレンダー", "/calendar", class: "link") %>
         </li>
         <li>
-          <%= link_to("新規登録", "/signup") %>
+          <%= link_to("新規登録", "/signup", class: "link") %>
         </li>
         <li>
-          <%= link_to("ログイン", "/login") %>
+          <%= link_to("ログイン", "/login", class: "link") %>
         </li>
         <% end %>
         </ul>

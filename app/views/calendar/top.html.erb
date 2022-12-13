@@ -2,10 +2,31 @@
 <%= month_calendar events: @items do |date, items| %>
   <%= date %>
 
+<div class="item-content">
   <% items.each do |item| %>
-    <div>
+    <div class="item-detail">
     <%= item.name %>
     <%= "#{item.price}円" %>
+    </div>
+    <div class="item-media">
+    <% if item.media_url_1.present? %>
+      <img src="<%= item.media_url_1 %>" width="50" height="50">
+      <!--<a href="<%= item.media_url_1 %>"><img src="<%= item.media_url_1 %>" width="50" height="50">-->
+    <% end %>
+    <% if item.media_url_2.present? %>
+      <img src="<%= item.media_url_2 %>" width="50" height="50">
+      <!--<a href="<%= item.media_url_2 %>"><img src="<%= item.media_url_2 %>" width="50" height="50">-->
+    <% end %>
+    <% if item.media_url_3.present? %>
+      <img src="<%= item.media_url_3 %>" width="50" height="50">
+      <!--<a href="<%= item.media_url_3 %>"><img src="<%= item.media_url_1 %>" width="50" height="50">-->
+    <% end %>
+    <% if item.media_url_4.present? %> 
+      <img src="<%= item.media_url_4 %>" width="50" height="50">
+      <!--<a href="<%= item.media_url_4 %>"><img src="<%= item.media_url_1 %>" width="50" height="50">-->
+    <% end %>
+    </div>
+</div>
     
 
 

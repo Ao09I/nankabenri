@@ -13,7 +13,7 @@ class CalendarController < ApplicationController
     username = 'chiikawa_market'
 
     query_params = {
-      "max_results" => 50,
+      "max_results" => 100,
       "expansions" => "attachments.media_keys",
       "tweet.fields" => "attachments,created_at,entities,id,lang",
       "media.fields" => "url,media_key"
@@ -60,18 +60,23 @@ class CalendarController < ApplicationController
     response = request.run
     parsed_response = JSON.parse(response.body)
 
-    #map
+    #new_product_responseに、まず新商品ツイートのみを取り出して入れる
+    #dataのなかから["text"]に"🌱新商品🌱"が含まれるもののみを取り出す
     new_product_response = parsed_response["data"].select do |tweet|
       tweet["text"].include?("🌱新商品🌱") #&& 
     end
 
+    #["includes"]にふくまれている["media"]セットをall_media_keysに入れる
     all_media_keys = parsed_response["includes"].present? ? parsed_response["includes"]["media"] : []
 
+    #事前に洗い出した新商品データに処理を加えていく
     before_save_tweets = new_product_response.map do |tweet|
       {
         id: tweet["id"],
         text: tweet["text"],
+        #mediaセットから["media_keys"]に対応する["url"]を取り出す
         image_urls: all_media_keys.select do |media| 
+          #includeの比較、最後のmapの処理に使われているmediaにはmediaセットの配列が入っている
           tweet["attachments"]["media_keys"].include?(media["media_key"]) 
         end.map { |media| media["url"] }
       }
@@ -84,12 +89,14 @@ class CalendarController < ApplicationController
       #nextループ処理を抜けて次の処理へ
       next if item.present?
       new_product = tweet[:text].slice(/『.+?』/)
+      released_date = tweet[:text].slice(Item::DATE_FORMAT)
       #発売日に入れる方法
       new_item = Item.new(
         name: new_product, 
         price: tweet[:text].slice(/\d?*円/), 
-        start_time: Time.zone.now, 
+        start_time: Time.zone.parse(released_date), 
         tweet_id: tweet[:id],
+        #何も入っていなければそのまま空のカラムが生成される
         media_url_1: tweet[:image_urls][0],
         media_url_2: tweet[:image_urls][1],
         media_url_3: tweet[:image_urls][2],

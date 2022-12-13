@@ -10,12 +10,12 @@
   <div class="post-content">
 
   <div class="recruitment_posts">
-    <%= link_to("新規投稿はこちら", "/trade/new")%>
+    <%= link_to("新規投稿はこちら", "/trade/new", class: "link")%>
   </div>
 
     <div class="posts-index-item">
       <% @post.each do |post| %>
-        <li><%= link_to(post.id, "/trade/#{post.id}") %></li>
+        <li><%= link_to(post.id, "/trade/#{post.id}", class: "link") %></li>
         <%= post.content %>
       <% end %>
     </div>
