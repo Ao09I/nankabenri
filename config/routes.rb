@@ -12,8 +12,12 @@ Rails.application.routes.draw do
   get "trade/index" => "trade#index"
   get "trade/new" => "trade#new"
   post "trade/create" => "trade#create"
-  get "trade/:id" => "trade#show"
+  get "trade/:id" => "thread#new"
 
+  #上と同じ画面？
+  #get "trade/:id" => "thread#new"
+  get "thread/:id/new" => "thread#new"
+  post "thread/:id/create" => "thread#create"
   #get "/event" => "event#top"
 
   post "users/create" => "users#create"

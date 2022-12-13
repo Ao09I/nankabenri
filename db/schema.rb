@@ -11,6 +11,16 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_11_25_111942) do
+  create_table "comments", force: :cascade do |t|
+    t.text "content", null: false
+    t.integer "user_id", null: false
+    t.integer "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name", null: false
     t.integer "price"
@@ -20,21 +30,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_111942) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "post_threads", force: :cascade do |t|
-    t.text "content", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_post_threads_on_user_id"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.text "content", null: false
     t.integer "user_id", null: false
-    t.integer "thread_id", null: false
+    t.boolean "is_assignment", default: false, null: false
+    t.boolean "is_requirement", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["thread_id"], name: "index_posts_on_thread_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -46,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_111942) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "post_threads", "users"
-  add_foreign_key "posts", "threads"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "posts", "users"
 end

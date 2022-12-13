@@ -6,7 +6,6 @@ class UsersController < ApplicationController
     def create
         @user = User.new(name: params[:name], email: params[:email], password: params[:password])
         if @user.save
-            #flashどこに出てくる？？
             flash[:notice] = "登録完了しました"
             redirect_to("/trade/index")
         else

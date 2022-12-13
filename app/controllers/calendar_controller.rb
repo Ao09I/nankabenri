@@ -13,9 +13,10 @@ class CalendarController < ApplicationController
     username = 'chiikawa_market'
 
     query_params = {
-      "max_results" => 50,
-      "expansions" => "author_id",
-      "tweet.fields" => "attachments,author_id,conversation_id,created_at,entities,id,lang",
+      "max_results" => 10,
+      "expansions" => "attachments.media_keys",
+      "tweet.fields" => "attachments,created_at,entities,id,lang",
+      "media.fields" => "url,media_key"
     }
 
     #ユーザー情報の取得
@@ -60,17 +61,20 @@ class CalendarController < ApplicationController
     parsed_response = JSON.parse(response.body)
 
     #map
-    new_product_response = parsed_response["data"].map do |tweet|
+    new_product_response = parsed_response["data"].map.with_index do |tweet|
       {
         id: tweet["id"],
         text: tweet["text"],
         image_url: 
-        if tweet["entities"]["urls"].present?
-          if tweet["entities"]["urls"][0]["images"].present?
-            tweet["entities"]["urls"][0]["images"].map { |image| image["url"]}
-          else
-            []
-          end
+        #メディアのキーが存在するならば
+        if keys = parsed_response["data"][0]["attachments"]["media_keys"].present?
+          #キーを頼りにmediaのurlを探しに行く
+          #if tweet["entities"]["urls"][0]["images"].present?
+            #tweet["entities"]["urls"][0]["images"].map { |image| image["url"]}
+          #else　[]　end
+          parsed_response["includes"]["media"].select
+          { |media| keys.include?(media["media_key"]) }.map 
+          { |media| media["url"] }
         else
           []
         end
@@ -88,7 +92,7 @@ class CalendarController < ApplicationController
       #nextループ処理を抜けて次の処理へ
       next if item.present?
       new_product = tweet[:text].slice(/『.+?』/)
-      #画像の表示の仕方、発売日に入れる方法
+      #発売日に入れる方法
       new_item = Item.new(name: new_product , price: tweet[:text].slice(/\d?*円/), start_time: Time.zone.now, tweet_id: [:id])
       new_item.save
       end

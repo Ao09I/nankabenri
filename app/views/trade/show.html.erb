@@ -1,11 +1,20 @@
+
 <div class="main">
-<%= @id %>
 
 <div class="posts-show-item">
     <p><%= @post.content %></p>
+    <!--返信機能実装する-->
+    <%= link_to("返信する", "/thread/#{@post.id}/new") %>
     <div class="post-time">
         <%= @post.created_at %>
     </div>
     </div>
 </div>
+
+<!-- comment内容表示する -->
+<div class="threads-content">
+    <%= @comment.content %>
+
+</div>
+
 

@@ -1,9 +1,24 @@
 <div class="main">
     <h1>交換募集掲示板ページ</h1>
-    <% @posts.each do |post| %>
-      <div class="posts-index-item">
-        <%= link_to(post.content, "/posts/#{post.id}") %>
-      </div>
-    <% end %>
+    <p>グッズ交換募集用の掲示板です。
+    <br>・募集しているもの
+    <br>・譲渡するもの
+    <br>・その他交換方法、日時
+    <br>などを記載するようにお願いします。その他個人情報の取扱いにはお気をつけくださいませ。
+    </p>
+
+  <div class="post-content">
+
+  <div class="recruitment_posts">
+    <%= link_to("新規投稿はこちら", "/trade/new")%>
+  </div>
+
+    <div class="posts-index-item">
+      <% @post.each do |post| %>
+        <li><%= link_to(post.id, "/trade/#{post.id}") %></li>
+        <%= post.content %>
+      <% end %>
+    </div>
+  </div>
 
 </div>
