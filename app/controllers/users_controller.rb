@@ -7,7 +7,7 @@ class UsersController < ApplicationController
         @user = User.new(name: params[:name], email: params[:email], password: params[:password])
         if @user.save
             flash[:notice] = "登録完了しました"
-            redirect_to("/trade/index")
+            redirect_to("/")
         else
             flash[:notice] = "登録失敗しました"
             render("users/new")

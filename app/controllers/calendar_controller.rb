@@ -3,7 +3,7 @@ class CalendarController < ApplicationController
   before_action :fetch_tweets, only: [:top]
 
   def top
-   @items = Item.all 
+    @items = Item.all 
   end
 
   def fetch_tweets
@@ -88,8 +88,9 @@ class CalendarController < ApplicationController
       item = Item.find_by(tweet_id: tweet[:id])
       #nextループ処理を抜けて次の処理へ
       next if item.present?
-      new_product = tweet[:text].slice(/『.+?』/)
+      new_product = tweet[:text].slice(/『[\s\S]*』/)
       released_date = tweet[:text].slice(Item::DATE_FORMAT)
+
       #発売日に入れる方法
       new_item = Item.new(
         name: new_product, 
@@ -102,6 +103,7 @@ class CalendarController < ApplicationController
         media_url_3: tweet[:image_urls][2],
         media_url_4: tweet[:image_urls][3],
       )
+
 
       new_item.save
       end
