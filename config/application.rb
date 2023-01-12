@@ -18,6 +18,5 @@ module Nankabenri
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.hosts << 'nankabenri.onrender.com'
   end
 end
