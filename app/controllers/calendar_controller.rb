@@ -63,7 +63,8 @@ class CalendarController < ApplicationController
     #new_product_responseに、まず新商品ツイートのみを取り出して入れる
     #dataのなかから["text"]に"🌱新商品🌱"が含まれるもののみを取り出す
     new_product_response = parsed_response["data"].select do |tweet|
-      tweet["text"].include?("🌱新商品🌱") #&& 
+      tweet["text"].match?(Item::ITEM_NAME)
+      #tweet["text"].include?(Item::ITEM_NAME)   #tweet["text"].include?("🌱新商品🌱")
     end
 
     #["includes"]にふくまれている["media"]セットをall_media_keysに入れる

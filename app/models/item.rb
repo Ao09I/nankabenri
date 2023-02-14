@@ -3,6 +3,7 @@ class Item < ApplicationRecord
 
     #正規表現を定数に入れる
     DATE_FORMAT = /(\d{1}|\d{2})\/(\d{2}|\d{1})/
+    ITEM_NAME = /^[\u{10000}-\u{10FFFF}]新商品[\u{10000}-\u{10FFFF}]$/
 end
 
 
